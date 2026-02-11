@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.1.0",
+  "description": "Real-time Chat (Slack)",
+  "homepage": "https://github.com/Freemason-EAG/frontend-project-12#readme",
+  "workspaces": ["frontend"],
+  "bugs": {
+    "url": "https://github.com/Freemason-EAG/frontend-project-12/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Freemason-EAG/frontend-project-12.git"
+  },
+  "license": "ISC",
+  "author": "Freemason-EAG",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "npx start-server -p $PORT -s ./frontend/dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4"
+  }
+}
