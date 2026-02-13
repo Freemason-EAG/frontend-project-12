@@ -3,8 +3,8 @@ import { Form, Field, ErrorMessage } from 'formik'
 const LoginForm = () => {
     return (
         <Form>
-        <div className='form-group'>
-            <label htmlFor='username'>Name</label>
+            <h2 className='text-center mb-4' style={{ color: '#396591ff', fontWeight: 'bold', fontSize: '48px' }}>Login</h2>
+        <div className='form-floating mb-3'>
             <Field
                 type='text'
                 name='username'
@@ -12,36 +12,34 @@ const LoginForm = () => {
                 autoFocus
                 aria-label="username" 
                 placeholder="Name" 
-                required 
                 autoComplete="off"
             />
+            <label htmlFor='username'>Name</label>
             <ErrorMessage
                 component='div'
                 name='username'
-                className='invalid-feedback' 
+                className='invalid-feedback d-block' 
             />
         </div>
         
-        <div className='form-group'>
-            <label htmlFor='password'>Password</label>
+        <div className='form-floating mb-3'>
             <Field
                 type='password'
                 name='password'
                 className='form-control'
-                autoFocus
                 aria-label="password" 
                 placeholder="Password" 
-                required 
                 autoComplete="off"
             />
+            <label htmlFor='password'>Password</label>
             <ErrorMessage
                 component='div'
                 name='password'
-                className='invalid-feedback' 
+                className='invalid-feedback d-block'
             />
         </div>
 
-        <button type='submit'>Send</button>
+        <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>Send</button>
         </Form>
     )
 }
