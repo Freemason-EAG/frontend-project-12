@@ -1,6 +1,7 @@
 import { Form, Field, ErrorMessage } from 'formik'
 
-const LoginForm = () => {
+const LoginForm = ({ status }) => {
+
     return (
         <Form>
             <h2 className='text-center mb-4' style={{ color: '#396591ff', fontWeight: 'bold', fontSize: '48px' }}>Login</h2>
@@ -40,6 +41,10 @@ const LoginForm = () => {
         </div>
 
         <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>Send</button>
+
+        {status && (
+            <div className='alert alert-danger'>{status}</div>
+        )}
         </Form>
     )
 }

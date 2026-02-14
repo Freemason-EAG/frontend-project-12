@@ -8,11 +8,11 @@ const loginFormValidationSchema = yup.object().shape({
         .required('Required field'),
     password: yup.string()
     .required('Required field')
-    .min(8, 'Minimum 8 letters')
-    .matches(/[a-z]/, 'Lowercase')
-    .matches(/[A-Z]/, "Uppercase")
-    .matches(/\d/, "Number")
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Special character")
+    // .min(8, 'Minimum 8 letters')
+    // .matches(/[a-z]/, 'Lowercase')
+    // .matches(/[A-Z]/, "Uppercase")
+    // .matches(/\d/, "Number")
+    // .matches(/[!@#$%^&*(),.?":{}|<>]/, "Special character")
 
 })
 
