@@ -5,7 +5,6 @@ import LoginForm from '../components/LoginForm.jsx'
 import loginFormValidationSchema from '../utils/validationSchemas.js'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../store/slices/authSlice.js'
-import store from '../store/index.js'
 import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
