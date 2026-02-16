@@ -8,22 +8,6 @@ const MessagesList = () => {
             author: 'user',
             value: 'value2',
         },
-        id3: {
-            author: 'admin',
-            value: 'value1',
-        },
-        id4: {
-            author: 'user',
-            value: 'value2',
-        },
-        id5: {
-            author: 'admin',
-            value: 'value1',
-        },
-        id6: {
-            author: 'user',
-            value: 'value2',
-        },
     }
 
     if (!messages) return <div className='mt-auto px-5 py-3'></div>
