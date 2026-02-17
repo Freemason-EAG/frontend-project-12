@@ -12,12 +12,12 @@ export const fetchGetChannels = createAsyncThunk(
     'channels/fetchGetChannels',
     async (_, { getState }) => {
         const token = getState().auth.token
-        const responce = await axios.get(channelsPath(), {
+        const response = await axios.get(channelsPath(), {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         })
-        return responce.data
+        return response.data
     }
 )
 
@@ -25,25 +25,25 @@ export const fetchAddChannel = createAsyncThunk(
     'channels/fetchAddChannel',
     async (name, { getState }) => {
         const token = getState().auth.token
-        const responce = await axios.post(channelsPath(), { name }, {
+        const response = await axios.post(channelsPath(), { name }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-        return responce.data
+        return response.data
     }
 )
 
 export const fetchEditChannel = createAsyncThunk(
     'channels/fetchEditChannel',
-    async ({id, name: newName}, { getState }) => {
+    async ({ id, name }, { getState }) => {
         const token = getState().auth.token
-        const responce = await axios.patch(channelPath(id), {name: newName}, {
+        const response = await axios.patch(channelPath(id), { name }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-        return responce.data
+        return response.data
     }
 )
 
@@ -51,12 +51,12 @@ export const fetchRemoveChannel = createAsyncThunk(
     'channels/fetchRemoveChannel',
     async (id, { getState }) => {
         const token = getState().auth.token
-        const responce = await axios.delete(channelPath(id), {
+        const response = await axios.delete(channelPath(id), {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         })
-        return responce.data
+        return response.data
     }
 )
 
@@ -64,6 +64,7 @@ const channelsAdapter = createEntityAdapter()
 const initialState = channelsAdapter.getInitialState({
     status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
+    currentChannelId: null,
 })
 
 const channelsSlice = createSlice({
@@ -73,6 +74,9 @@ const channelsSlice = createSlice({
         addChannel: channelsAdapter.addOne,
         addChannels: channelsAdapter.addMany,
         removeChannel: channelsAdapter.removeOne,
+        setCurrentChannel: (state, action) => {
+            state.currentChannelId = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetChannels.pending, (state) => {
@@ -137,5 +141,5 @@ const channelsSlice = createSlice({
 })
 
 export const selectors = channelsAdapter.getSelectors(state => state.channels)
-export const { addChannel, addChannels, removeChannel } = channelsSlice.actions
+export const { addChannel, addChannels, removeChannel, setCurrentChannel } = channelsSlice.actions
 export default channelsSlice.reducer

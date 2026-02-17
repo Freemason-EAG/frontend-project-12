@@ -1,30 +1,35 @@
+import { useSelector } from "react-redux"
+import { selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
+
 const MessagesList = () => {
-    const messages = {
-        id1: {
-            author: 'admin',
-            value: 'value1',
-        },
-        id2: {
-            author: 'user',
-            value: 'value2',
-        },
+    const messages = useSelector(messagesSelectors.selectAll)
+    const { status, error } = useSelector(state => state.messages)
+    const currentChannelId = useSelector(state => state.channels.currentChannelId)
+    const currentChannelMessages = messages.filter(message => message.channelId === currentChannelId)
+
+    const renderMessagesList = () => {
+        if (status === 'loading') return <div className="mt-auto px-5 py-3 text-muted">Loading...</div>
+        if (status === 'failed') return <div className="mt-auto px-5 py-3 text-muted">Error: {error.message}</div>
+        if (currentChannelMessages.length === 0) return <div className="mt-auto px-5 py-3 text-muted">There are no messages in this channel yet. Be the first to write.</div>
+        return currentChannelMessages.map(({id, body, username }) => (
+            <div
+            key={id}
+            className="text-break mb-2"
+            >
+                <b>{username}:</b>
+                {body}
+            </div>
+        ))
     }
 
-    if (!messages) return <div className='mt-auto px-5 py-3'></div>
+    
     return (
         <div id="messagesList" className="chat-messages overflow-auto px-5">
-                {
-                    Object.values(messages).map(({author, value}) => (
-                        <div 
-                            key={value}
-                            className="text-break mb-2">
-                                <b>{author}:</b>
-                                {value}
-                        </div>
-                    ))
-                }
+                {renderMessagesList()}
         </div>
     )
 }
 
 export default MessagesList
+
+

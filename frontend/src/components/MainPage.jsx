@@ -5,6 +5,7 @@ import NavBar from './NavBar'
 import ChannelsBox from './Channels/ChannelsBox.jsx'
 import MessagesBox from './Messages/MessagesBox.jsx'
 import { fetchGetChannels } from '../store/slices/channelsSlice.js'
+import { fetchGetMessages } from '../store/slices/messagesSlice.js'
 
 
 const MainPage = () => {
@@ -12,7 +13,10 @@ const MainPage = () => {
     const token = useSelector(state => state.auth.token)
     
     useEffect(() => {   
-        if(token) dispatch(fetchGetChannels())   
+        if(token) {
+            dispatch(fetchGetChannels())
+            dispatch(fetchGetMessages())
+        }   
     }, [dispatch, token])
 
     if (!token) return <Navigate to={'/login'} replace />
