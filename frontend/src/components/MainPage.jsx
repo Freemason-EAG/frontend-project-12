@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import socket from '../utils/socket.js'
 import NavBar from './NavBar'
 import ChannelsBox from './Channels/ChannelsBox.jsx'
 import MessagesBox from './Messages/MessagesBox.jsx'
@@ -16,7 +17,21 @@ const MainPage = () => {
         if(token) {
             dispatch(fetchGetChannels())
             dispatch(fetchGetMessages())
-        }   
+
+            socket.connect() // подключаем сокет
+
+            socket.on('connect', () => {
+                console.log('Socket connected') // слушаем подключение
+            })
+            socket.on('connect_error', (error) => {
+                console.log('Socket error:', error) // слушаем ошибки 
+            })
+        } 
+        return () => { // при размонтировании, если соединение есть - отключаемся 
+            socket.off('connect') // убираем слушатели
+            socket.off('connect_error')
+            if (socket.connected) socket.disconnect()
+        }  
     }, [dispatch, token])
 
     if (!token) return <Navigate to={'/login'} replace />
@@ -45,29 +60,12 @@ const MainPage = () => {
 
 export default MainPage
 
+// события socket: 
 
+// connect	подключение к серверу
+// disconnect	отключение от сервера
+// connect_error	ошибка при подключении
+// reconnect	успешное переподключение
 
-
-
-// const MainPage = () => {
-//     const token = useSelector(state => state.auth.token)
-//     if (!token) {
-//         return <Navigate to={'/login'} replace />
-//     }
-//     return (
-//         <>
-//             <nav>
-//                 <ul>
-//                     <li>
-//                         <Link to='/login'>Login Page</Link>
-//                     </li>
-//                     <li>
-//                         <Link to='/404'>Not Found</Link>
-//                     </li>
-//                 </ul>
-//             </nav>
-//         </>
-//     )
-// }
-
-// export default MainPage
+// метод on - это подписка на события
+// метод emit - отправка события 

@@ -1,11 +1,24 @@
-import { useSelector } from "react-redux"
-import { selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { addMessage, selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
+import socket from "../../utils/socket.js"
 
 const MessagesList = () => {
     const messages = useSelector(messagesSelectors.selectAll)
     const { status, error } = useSelector(state => state.messages)
     const currentChannelId = useSelector(state => state.channels.currentChannelId)
     const currentChannelMessages = messages.filter(message => message.channelId === currentChannelId)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        socket.on('newMessage', (message) => {
+          dispatch(addMessage(message))
+        })
+        return () => {
+            socket.off('newMessage')
+        }
+    }, [dispatch])
 
     const renderMessagesList = () => {
         if (status === 'loading') return <div className="mt-auto px-5 py-3 text-muted">Loading...</div>

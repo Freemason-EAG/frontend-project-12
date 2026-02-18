@@ -87,6 +87,8 @@ const channelsSlice = createSlice({
             channelsAdapter.setAll(state, action.payload)
             state.status = 'succeeded'
             state.error = null
+            const defaultChannel = action.payload.find(channel => channel.name === 'general')
+            if (defaultChannel) state.currentChannelId = defaultChannel.id
         })
         builder.addCase(fetchGetChannels.rejected, (state, action) => {
             state.status = 'failed'
