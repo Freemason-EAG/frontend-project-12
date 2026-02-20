@@ -16,5 +16,13 @@ const loginFormValidationSchema = yup.object().shape({
 
 })
 
+export const channelNameValidationSchema = yup.object().shape({
+    name: yup.string()
+    .min(3, 'Minimum 3 letters')
+    .max(20, 'Maximum 20 letters')
+    .required('Required field')
+})
+
 export default loginFormValidationSchema
+
 

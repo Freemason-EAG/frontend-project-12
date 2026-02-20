@@ -31,7 +31,7 @@ const MessageForm = () => {
                     resetForm()
                     }
                     catch (error) {
-                        console.log('Ошибка отправки:', error)
+                        console.log('Send error:', error)
                     }
                     finally {
                         setSubmitting(false)
