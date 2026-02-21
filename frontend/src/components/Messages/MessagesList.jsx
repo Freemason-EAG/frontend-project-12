@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { addMessage, selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
 import socket from "../../utils/socket.js"
 
@@ -11,6 +11,8 @@ const MessagesList = () => {
 
     const dispatch = useDispatch()
 
+    const messagesRef = useRef(null)
+
     useEffect(() => {
         socket.on('newMessage', (message) => {
           dispatch(addMessage(message))
@@ -19,6 +21,13 @@ const MessagesList = () => {
             socket.off('newMessage')
         }
     }, [dispatch])
+
+    useEffect(() => {
+        if (messagesRef.current) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight
+        }
+    }, [currentChannelMessages.length])
+
 
     const renderMessagesList = () => {
         if (status === 'loading') return <div className="mt-auto px-5 py-3 text-muted">Loading...</div>
@@ -34,10 +43,11 @@ const MessagesList = () => {
             </div>
         ))
     }
-
-    
     return (
-        <div id="messagesList" className="chat-messages overflow-auto px-5">
+        <div 
+        ref={messagesRef}
+        id="messagesList" 
+        className="chat-messages overflow-auto px-5">
                 {renderMessagesList()}
         </div>
     )

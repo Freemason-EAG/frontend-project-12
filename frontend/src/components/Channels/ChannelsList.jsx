@@ -1,40 +1,63 @@
 import { useSelector, useDispatch } from "react-redux"
 import { selectors as channelsSelectors } from "../../store/slices/channelsSlice"
 import { setCurrentChannel } from "../../store/slices/channelsSlice"
+import ChannelItem from "./ChannelItem"
+import { useState } from "react"
+import RenameChannelModal from "../Modals/RenameChannelModal"
+import RemoveChannelModal from "../Modals/RemoveChannelModal"
 
 const ChannelsList = () => {
     const dispatch = useDispatch()
     const channels = useSelector(channelsSelectors.selectAll)
     const { status, error, currentChannelId } = useSelector(state => state.channels)
 
+    const [renameModal, setRenameModal] = useState({isOpen: false, id: null, name: ''})
+    const [removeModal, setRemoveModal] = useState({isOpen: false, id: null})
+
+    const handleRename = (id, name) => {
+        setRenameModal({ isOpen: true, id, name })
+    }
+
+    const handleDelete = (id) => {
+        setRemoveModal({ isOpen: true, id })
+    }
+
+    
+
     const renderChannelsList = () => {
         if (status === 'loading') return <li className="text-muted">Loading...</li>
         if (status === 'failed') return <li className="text-muted">Error: {error.message}</li>
         if (channels.length === 0) return <li className="text-muted">Сhannels have not been added yet</li>
         return channels.map((channel) => (
-                <li
-                    key={channel.id}
-                    className="nav-item w-100"
-                >
-                    <button 
-                    type='button' 
-                    className={`w-100 rounded-0 text-start btn ${
-                        channel.id === currentChannelId ? 'btn-secondary' : 'btn-light'
-                    }`}
-                    onClick={() => dispatch(setCurrentChannel(channel.id))}
-                    >
-                        <span className="me-1">#</span>
-                        {channel.name}
-                    </button>
-                </li>
-            )) 
-
+            <ChannelItem
+                channel={channel}
+                key={channel.id}
+                isActive={channel.id === currentChannelId}
+                onSelect={() => dispatch(setCurrentChannel(channel.id))}
+                onRename={handleRename}
+                onDelete={handleDelete}
+            />  
+        )) 
     }
 
     return (
-        <ul id='channels-box' className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'>
-            {renderChannelsList()}
-        </ul>
+        <>
+            <ul id='channels-box' className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'>
+                {renderChannelsList()}
+            </ul>
+
+            <RenameChannelModal 
+                show={renameModal.isOpen}
+                onClose={() => setRenameModal({isOpen: false, id: null, name: ''})}
+                channelId={renameModal.id}
+            />
+            
+            <RemoveChannelModal
+                show={removeModal.isOpen}
+                onClose={() => setRemoveModal({isOpen: false, id: null})}
+                channelId={removeModal.id}
+            />   
+        </>
     )
 }
 

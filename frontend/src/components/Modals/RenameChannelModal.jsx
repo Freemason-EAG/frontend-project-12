@@ -1,25 +1,26 @@
 import { Modal, Button, Form as BootstrapForm } from 'react-bootstrap'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef } from 'react'
-import { fetchAddChannel, setCurrentChannel } from '../../store/slices/channelsSlice'
+import { fetchEditChannel } from '../../store/slices/channelsSlice'
 import { selectors as channelsSelector } from '../../store/slices/channelsSlice'
 import { channelNameValidationSchema } from '../../utils/validationSchemas'
+import { useRef } from 'react'
 
-const AddChannelModal = ({ show, onClose }) => {
+
+const RenameChannelModal = ({ show, onClose, channelId }) => {
 
     const dispatch = useDispatch()
     const channels = useSelector(channelsSelector.selectAll)
 
     const inputRef = useRef(null)
 
-    if (!show) return null
+    if (!show) return 
 
     return (
 
-        <Modal show={show} onHide={onClose} onEntered={() => inputRef.current.focus()}> {/*onEntered - событие, кот срабатывает при открытии модалки и завершении анимации */}
+        <Modal show={show} onHide={onClose} onEntered={() => inputRef.current.focus()}>
             <Modal.Header closeButton>
-                <Modal.Title>Add channel</Modal.Title>
+                <Modal.Title>Rename channel</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Formik 
@@ -34,13 +35,12 @@ const AddChannelModal = ({ show, onClose }) => {
                         }
 
                         try {
-                            const result = await dispatch(fetchAddChannel(values.name)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
-                            dispatch(setCurrentChannel(result.id))
+                            await dispatch(fetchEditChannel({id: channelId, name: values.name})).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
                             onClose()
                             resetForm()
                         }
                         catch (error) {
-                            console.log('Creating channel error:', error)
+                            console.log('Rename channel error:', error)
                         }
                         finally {
                             setSubmitting(false)
@@ -52,19 +52,21 @@ const AddChannelModal = ({ show, onClose }) => {
                         <FormikForm>
                             <BootstrapForm.Group>
                                 <BootstrapForm.Label className='visually-hidden'>
-                                    Channel name
+                                    Current name
                                 </BootstrapForm.Label>
                                 <Field name="name">
+                                
                                 {({ field }) => (
                                     <BootstrapForm.Control 
                                         {...field}
                                         id='name'
-                                        placeholder='Channel name'
+                                        placeholder='New channel name'
                                         isInvalid={touched.name && !!errors.name}
                                         ref={inputRef}
-                                        />
+                                    />
                                 )} 
-                                </Field>
+
+                                </Field> 
                                 <ErrorMessage 
                                 name="name"
                                 component="div"
@@ -73,7 +75,7 @@ const AddChannelModal = ({ show, onClose }) => {
 
                                 <div className="d-flex justify-content-end mt-2">
                                     <Button onClick={onClose} variant='secondary' className="me-2">Cansel</Button>
-                                    <Button type="submit" variant='primary' className="me-2" disabled={isSubmitting}>Add</Button>
+                                    <Button type="submit" variant='primary' className="me-2" disabled={isSubmitting}>Send</Button>
                                 </div>
                         </FormikForm>
                         )}
@@ -83,4 +85,4 @@ const AddChannelModal = ({ show, onClose }) => {
     )
 }
 
-export default AddChannelModal
+export default RenameChannelModal
