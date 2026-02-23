@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react"
 import { addMessage, selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
 import socket from "../../utils/socket.js"
 import { useTranslation } from 'react-i18next'
+import { toast } from "react-toastify"
 
 const MessagesList = () => {
 
@@ -31,6 +32,10 @@ const MessagesList = () => {
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight
         }
     }, [currentChannelMessages.length])
+
+    useEffect(() => {
+        if (status === 'failed') toast.error(t('toasts.loadingError'))
+    }, [status, t])
 
 
     const renderMessagesList = () => {

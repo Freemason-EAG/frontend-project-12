@@ -6,6 +6,7 @@ import { fetchEditChannel } from '../../store/slices/channelsSlice'
 import { selectors as channelsSelector } from '../../store/slices/channelsSlice'
 import { channelNameValidationSchema } from '../../utils/validationSchemas'
 import { useRef } from 'react'
+import { toast } from 'react-toastify'
 
 
 const RenameChannelModal = ({ show, onClose, channelId }) => {
@@ -39,11 +40,13 @@ const RenameChannelModal = ({ show, onClose, channelId }) => {
 
                         try {
                             await dispatch(fetchEditChannel({id: channelId, name: values.name})).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
+                            toast.success(t('toasts.renameChannelSuccess'))
                             onClose()
                             resetForm()
                         }
                         catch (error) {
                             console.log('Rename channel error:', error)
+                            toast.error(t('toasts.renameChannelError'))
                         }
                         finally {
                             setSubmitting(false)

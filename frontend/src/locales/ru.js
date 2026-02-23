@@ -92,5 +92,17 @@ export default {
             maxLength: 'Максимум {{count}} символов',
             passwordsMustMatch: 'Пароли должны совпадать',
         },
+        toasts: {
+            success: 'Успешное подключение',
+            error: 'Ошибка подключения',
+            loading: 'Загрузка...',
+            loadingError: 'Ошибка загрузки',
+            addChannelSuccess: 'Канал успешно добавлен',
+            addChannelError: 'Не удалось добавить канал',
+            removeChannelSuccess: 'Канал успешно удален',
+            removeChannelError: 'Не удалось удалить канал',
+            renameChannelSuccess: 'Канал успешно переименован',
+            renameChannelError: 'Не удалось переименовать канал',
+        },
     },
 }

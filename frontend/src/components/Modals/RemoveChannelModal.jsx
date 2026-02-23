@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { fetchRemoveChannel, setCurrentChannel } from '../../store/slices/channelsSlice'
 import { selectors } from '../../store/slices/channelsSlice'
+import { toast } from 'react-toastify'
 
 const RemoveChannelModal = ({ show, onClose, channelId }) => {
 
@@ -20,6 +21,7 @@ const RemoveChannelModal = ({ show, onClose, channelId }) => {
     const handleDelete = async () => {
         try {
             await dispatch(fetchRemoveChannel(channelId)).unwrap()
+            toast.success(t('toasts.removeChannelSuccess'))
             
             if (currentChannelId === channelId) dispatch(setCurrentChannel(defaultChannel.id))
             onClose()
@@ -27,6 +29,7 @@ const RemoveChannelModal = ({ show, onClose, channelId }) => {
         catch (error) {
             console.log('Remove channel error:', error)
             setError(t('modals.removeChannel.error'))
+            toast.error(t('toasts.removeChannelError'))
         }
     }
 

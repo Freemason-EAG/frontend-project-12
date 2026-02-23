@@ -3,9 +3,12 @@ import MainPage from './components/MainPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
+import { Bounce, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<MainPage />} />
@@ -14,6 +17,20 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
+     <ToastContainer 
+     position='top-right'
+     autoClose={5000}
+     hideProgressBar={false} // Показывать полоску прогресса
+     newestOnTop={false} // Новые тосты снизу
+     closeOnClick={false} // Не закрываются по клику
+     rtl={false} // Направление текста (справа налево)
+     pauseOnFocusLoss //Останавливать таймер при потере фокуса
+     draggable // Можно перетаскивать мышкой
+     pauseOnHover // Останавливать таймер при наведении
+     theme='light'
+     transition={Bounce} // Анимация появления 
+     />
+    </>
   )
 }
 

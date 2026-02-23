@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { fetchAddChannel, setCurrentChannel } from '../../store/slices/channelsSlice'
 import { selectors as channelsSelector } from '../../store/slices/channelsSlice'
 import { channelNameValidationSchema } from '../../utils/validationSchemas'
+import { toast } from 'react-toastify'
 
 const AddChannelModal = ({ show, onClose }) => {
 
@@ -38,12 +39,14 @@ const AddChannelModal = ({ show, onClose }) => {
 
                         try {
                             const result = await dispatch(fetchAddChannel(values.name)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
+                            toast.success(t('toasts.addChannelSuccess'))
                             dispatch(setCurrentChannel(result.id))
                             onClose()
                             resetForm()
                         }
                         catch (error) {
                             console.log('Creating channel error:', error)
+                            toast.error(t('toasts.addChannelError'))
                         }
                         finally {
                             setSubmitting(false)

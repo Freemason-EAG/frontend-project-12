@@ -7,16 +7,25 @@ import ChannelsBox from './Channels/ChannelsBox.jsx'
 import MessagesBox from './Messages/MessagesBox.jsx'
 import { fetchGetChannels } from '../store/slices/channelsSlice.js'
 import { fetchGetMessages } from '../store/slices/messagesSlice.js'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 
 const MainPage = () => {
+
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token)
     
     useEffect(() => {   
         if(token) {
-            dispatch(fetchGetChannels())
-            dispatch(fetchGetMessages())
+            Promise.all ([
+            dispatch(fetchGetChannels()).unwrap(),
+            dispatch(fetchGetMessages()).unwrap()
+            ])
+            .catch ((error) => {
+                toast.error(t('toasts.error'), error)
+            })
 
             socket.connect() // подключаем сокет
 
@@ -32,7 +41,7 @@ const MainPage = () => {
             socket.off('connect_error')
             if (socket.connected) socket.disconnect()
         }  
-    }, [dispatch, token])
+    }, [dispatch, token, t])
 
     if (!token) return <Navigate to={'/login'} replace />
     

@@ -2,10 +2,11 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectors as channelsSelectors } from "../../store/slices/channelsSlice"
 import { setCurrentChannel } from "../../store/slices/channelsSlice"
 import ChannelItem from "./ChannelItem"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from 'react-i18next'
 import RenameChannelModal from "../Modals/RenameChannelModal"
 import RemoveChannelModal from "../Modals/RemoveChannelModal"
+import { toast } from "react-toastify"
 
 const ChannelsList = () => {
 
@@ -26,7 +27,9 @@ const ChannelsList = () => {
         setRemoveModal({ isOpen: true, id })
     }
 
-    
+    useEffect(() => {
+        if (status === 'failed') toast.error(t('toasts.loadingError'))
+    },[status, t])
 
     const renderChannelsList = () => {
         if (status === 'loading') return <li className="text-muted">{t('channels.loading')}</li>
@@ -41,7 +44,7 @@ const ChannelsList = () => {
                 onSelect={() => dispatch(setCurrentChannel(channel.id))}
                 onRename={handleRename}
                 onDelete={handleDelete}
-            />  
+            />
         )) 
     }
 
@@ -51,12 +54,12 @@ const ChannelsList = () => {
                 {renderChannelsList()}
             </ul>
 
-            <RenameChannelModal 
+            <RenameChannelModal
                 show={renameModal.isOpen}
                 onClose={() => setRenameModal({isOpen: false, id: null, name: ''})}
                 channelId={renameModal.id}
             />
-            
+
             <RemoveChannelModal
                 show={removeModal.isOpen}
                 onClose={() => setRemoveModal({isOpen: false, id: null})}
