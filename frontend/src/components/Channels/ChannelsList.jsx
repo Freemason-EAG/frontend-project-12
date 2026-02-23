@@ -3,10 +3,14 @@ import { selectors as channelsSelectors } from "../../store/slices/channelsSlice
 import { setCurrentChannel } from "../../store/slices/channelsSlice"
 import ChannelItem from "./ChannelItem"
 import { useState } from "react"
+import { useTranslation } from 'react-i18next'
 import RenameChannelModal from "../Modals/RenameChannelModal"
 import RemoveChannelModal from "../Modals/RemoveChannelModal"
 
 const ChannelsList = () => {
+
+    const { t } = useTranslation()
+
     const dispatch = useDispatch()
     const channels = useSelector(channelsSelectors.selectAll)
     const { status, error, currentChannelId } = useSelector(state => state.channels)
@@ -25,9 +29,10 @@ const ChannelsList = () => {
     
 
     const renderChannelsList = () => {
-        if (status === 'loading') return <li className="text-muted">Loading...</li>
-        if (status === 'failed') return <li className="text-muted">Error: {error.message}</li>
-        if (channels.length === 0) return <li className="text-muted">Сhannels have not been added yet</li>
+        if (status === 'loading') return <li className="text-muted">{t('channels.loading')}</li>
+        if (status === 'failed') return <li className="text-muted">{t('channels.loadingError')}: {error.message}</li>
+        if (channels.length === 0) return <li className="text-muted">{t('channels.empty')}</li>
+
         return channels.map((channel) => (
             <ChannelItem
                 channel={channel}

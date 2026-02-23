@@ -1,0 +1,96 @@
+export default {
+    translation: {
+        channels: {
+            dropdownRename: 'Переименовать',
+            dropdownDelete: 'Удалить',
+            header: 'Каналы',
+            loading: 'Загрузка...',
+            loadingError: 'Ошибка загрузки',
+            empty: 'Каналы пока не добавлены',
+        },
+        messages: {
+            messages_one: '{{count}} сообщение',
+            messages_few: '{{count}} сообщения',
+            messages_many: '{{count}} сообщений',
+            formPlaceholder: 'Введите сообщение...',
+            formSend: 'Отправить',
+            formAriaLabel: 'Новое сообщение',
+            loading: 'Загрузка...',
+            loadingError: 'Ошибка загрузки',
+            empty: 'В этом канале пока нет сообщений. Будьте первым!',
+        },
+        modals: {
+            addChannel: {
+                title: 'Добавить канал',
+                label: 'Название канала',
+                placeholder: 'Название канала',
+                canselButton: 'Отменить',
+                addButton: 'Добавить',
+                existError: 'Канал с таким именем уже существует'
+            },
+            removeChannel: {
+                title: 'Удалить канал',
+                warning: 'Вы уверены, что хотите удалить этот канал?',
+                canselButton: 'Отмена',
+                deleteButton: 'Удалить',
+                error: 'Ошибка удаления',
+            },
+            renameChannel: {
+                title: 'Переименовать канал',
+                label: 'Новое имя канала',
+                placeholder: 'Новое имя канала',
+                canselButton: 'Отменить',
+                renameButton: 'Переименовать',
+                existError: 'Канал с таким именем уже существует',
+            },
+        },
+        loginForm: {
+            login: 'Войти',
+            name: 'Имя',
+            namePlaceholder: 'Ваш ник',
+            nameAriaLabel: 'Ваше имя',
+            password: 'Пароль',
+            passwordPlaceholder: 'Пароль',
+            passwordAriaLabel: 'Пароль',
+            loginButton: 'Войти',
+
+        },
+        loginPage: {
+            error: 'Некорректный логин или пароль',
+            footerSpan: 'Еще нет аккаунта?',
+            footerLink: 'Регистрация',
+        },
+        signupForm: {
+            title: 'Зарегистрироваться',
+            name: 'Имя',
+            namePlaceholder: 'Ваше имя',
+            nameAriaLabel: 'Ваше имя',
+            password: 'Пароль',
+            passwordPlaceholder: 'Пароль',
+            passwordAriaLabel: 'Пароль',
+            passwordConfirm: 'Подтвердите пароль',
+            passwordConfirmPlaceholder: 'Подтвердите пароль',
+            passwordConfirmAriaLabel: 'Подтвердите пароль',
+            signutButton: 'Зарегистрироваться',
+        },
+        signupPage: {
+            existError: 'Пользователь с таким именем уже существует',
+            registrationError: 'Ошибка регистрации',
+            footerSpan: 'Уже есть аккаунт?',
+            footerLink: 'Войти',
+        },
+        notFoundPage: {
+            title: 'Страница не найдена',
+            link: 'Вернуться на главную',
+        },
+        navBar: {
+            logout: 'Выйти',
+        },
+        validation: {
+            required: 'Обязательное поле',
+            minLength: 'Минимум {{count}} символов',
+            maxLength: 'Максимум {{count}} символов',
+            passwordsMustMatch: 'Пароли должны совпадать',
+        },
+    },
+}

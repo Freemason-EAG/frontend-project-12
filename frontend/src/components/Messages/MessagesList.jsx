@@ -2,8 +2,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useRef } from "react"
 import { addMessage, selectors as messagesSelectors } from "../../store/slices/messagesSlice.js"
 import socket from "../../utils/socket.js"
+import { useTranslation } from 'react-i18next'
 
 const MessagesList = () => {
+
+    const { t } = useTranslation()
+
     const messages = useSelector(messagesSelectors.selectAll)
     const { status, error } = useSelector(state => state.messages)
     const currentChannelId = useSelector(state => state.channels.currentChannelId)
@@ -30,9 +34,9 @@ const MessagesList = () => {
 
 
     const renderMessagesList = () => {
-        if (status === 'loading') return <div className="mt-auto px-5 py-3 text-muted">Loading...</div>
-        if (status === 'failed') return <div className="mt-auto px-5 py-3 text-muted">Error: {error.message}</div>
-        if (currentChannelMessages.length === 0) return <div className="mt-auto px-5 py-3 text-muted">There are no messages in this channel yet. Be the first to write.</div>
+        if (status === 'loading') return <div className="mt-auto px-5 py-3 text-muted">{t('messages.loading')}</div>
+        if (status === 'failed') return <div className="mt-auto px-5 py-3 text-muted">{t('messages.loadingError')}: {error.message}</div>
+        if (currentChannelMessages.length === 0) return <div className="mt-auto px-5 py-3 text-muted">{t('messages.empty')}</div>
         return currentChannelMessages.map(({id, body, username }) => (
             <div
             key={id}

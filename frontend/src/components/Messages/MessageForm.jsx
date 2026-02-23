@@ -1,12 +1,17 @@
 import { Formik,  Form, Field } from 'formik'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import routes from '../../utils/routes'
 import axios from 'axios'
+
 
 const { messagesPath } = routes
 
 
 const MessageForm = () => {
+
+    const { t } = useTranslation()
+
     const currentChannelId = useSelector(state => state.channels.currentChannelId)
     const username = useSelector(state => state.auth.user)
     const token = useSelector(state => state.auth.token)
@@ -42,13 +47,13 @@ const MessageForm = () => {
                     <div className='input-group has-validation'>
                         <Field 
                         name='text' 
-                        aria-label='New message' 
-                        placeholder='Enter a new message...' 
+                        aria-label={t('messages.formAriaLabel')} 
+                        placeholder={t('messages.formPlaceholder')}
                         autoFocus 
                         className='border-0 p-0 ps-2 form-control'
                         />
                         <button type='submit' className='btn btn-group-vertical'>
-                            <span>Send</span>
+                            <span>{t('messages.formSend')}</span>
                         </button>
                     </div>
                 </Form>

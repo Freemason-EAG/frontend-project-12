@@ -1,13 +1,16 @@
 import axios from 'axios'
 import routes from '../utils/routes.js'
 import { Formik } from 'formik'
+import { useTranslation } from 'react-i18next'
 import LoginForm from '../components/LoginForm.jsx'
 import loginFormValidationSchema from '../utils/validationSchemas.js'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../store/slices/authSlice.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const LoginPage = () => {
+
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -23,24 +26,23 @@ const LoginPage = () => {
                             <div className='col-12 col-md-6 mt-3 mt-md-0'>
                                 <Formik
                                     initialValues={{ username: '', password: ''}}
-                                    validationSchema={loginFormValidationSchema}
+                                    validationSchema={loginFormValidationSchema(t)}
                                     onSubmit={async (values, { setSubmitting, setStatus }) => {
-                                    try {
-                                        setSubmitting(true)
-                                        const responce = await axios.post(routes.loginPath(), values)
-                                        const { username, token } = responce.data
-                                        localStorage.setItem('token', token)
-                                        dispatch(addUser({ user: username, token}))
-                                        navigate('/', { replace: false })
-                                    }
-                                    catch (error) {
-                                        setStatus('Incorrect username or password')
-                                        console.log(error)
-                                    }
-                                    finally {
-                                        setSubmitting(false) // завершить отправку
-                                    }
-                                     
+                                        try {
+                                            setSubmitting(true)
+                                            const responce = await axios.post(routes.loginPath(), values)
+                                            const { username, token } = responce.data
+                                            localStorage.setItem('token', token)
+                                            dispatch(addUser({ username: username, token}))
+                                            navigate('/', { replace: false })
+                                        }
+                                        catch (error) {
+                                            setStatus(t('loginPage.error'))
+                                            console.log(error)
+                                        }
+                                        finally {
+                                            setSubmitting(false) // завершить отправку
+                                        }
                                     }}
                                 >
                                     {(props) => <LoginForm {...props} />}
@@ -50,8 +52,8 @@ const LoginPage = () => {
 
                         <div className='card-footer p-4'>
                             <div className='text-center'>
-                                <span>Don&apos;t have an account? </span> 
-                                <a href='#'>Registration</a>
+                                <span>{t('loginPage.footerSpan')} </span> 
+                                <Link to='/signup'>{t('loginPage.footerLink')}</Link>
                             </div>
                         </div>
             

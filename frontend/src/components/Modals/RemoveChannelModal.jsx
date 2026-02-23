@@ -1,9 +1,13 @@
 import { Modal, Button } from 'react-bootstrap'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { fetchRemoveChannel, setCurrentChannel } from '../../store/slices/channelsSlice'
 import { selectors } from '../../store/slices/channelsSlice'
 
 const RemoveChannelModal = ({ show, onClose, channelId }) => {
+
+    const { t } = useTranslation()
 
     const currentChannelId = useSelector(state => state.channels.currentChannelId)
     const channels = useSelector(selectors.selectAll)
@@ -11,15 +15,18 @@ const RemoveChannelModal = ({ show, onClose, channelId }) => {
 
     const dispatch = useDispatch()
 
+    const [error, setError] = useState(null)
+
     const handleDelete = async () => {
         try {
-            await dispatch(fetchRemoveChannel(channelId))
+            await dispatch(fetchRemoveChannel(channelId)).unwrap()
             
             if (currentChannelId === channelId) dispatch(setCurrentChannel(defaultChannel.id))
             onClose()
         }
         catch (error) {
             console.log('Remove channel error:', error)
+            setError(t('modals.removeChannel.error'))
         }
     }
 
@@ -29,17 +36,18 @@ const RemoveChannelModal = ({ show, onClose, channelId }) => {
 
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Remove channel</Modal.Title>
+                <Modal.Title>{t('modals.removeChannel.title')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className='modalBody'>
-                    <p>Are you sure you want to permanently delete the channel?</p>
+                    <p>{t('modals.removeChannel.warning')}</p>
                 </div>
                 <div className="d-flex justify-content-end mt-2">
-                    <Button onClick={onClose} variant='secondary' className="me-2">Cansel</Button>
-                    <Button onClick={() => handleDelete(channelId)} variant='danger' className="me-2">Delete</Button>
+                    <Button onClick={onClose} variant='secondary' className="me-2">{t('modals.removeChannel.canselButton')}</Button>
+                    <Button onClick={() => handleDelete(channelId)} variant='danger' className="me-2">{t('modals.removeChannel.deleteButton')}</Button>
                 </div>
             </Modal.Body>
+            {error && <div className='alert alert-danger'>{error}</div>}
         </Modal>
     )
 }

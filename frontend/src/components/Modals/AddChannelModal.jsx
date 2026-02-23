@@ -2,11 +2,14 @@ import { Modal, Button, Form as BootstrapForm } from 'react-bootstrap'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { fetchAddChannel, setCurrentChannel } from '../../store/slices/channelsSlice'
 import { selectors as channelsSelector } from '../../store/slices/channelsSlice'
 import { channelNameValidationSchema } from '../../utils/validationSchemas'
 
 const AddChannelModal = ({ show, onClose }) => {
+
+    const { t } = useTranslation()
 
     const dispatch = useDispatch()
     const channels = useSelector(channelsSelector.selectAll)
@@ -19,17 +22,17 @@ const AddChannelModal = ({ show, onClose }) => {
 
         <Modal show={show} onHide={onClose} onEntered={() => inputRef.current.focus()}> {/*onEntered - событие, кот срабатывает при открытии модалки и завершении анимации */}
             <Modal.Header closeButton>
-                <Modal.Title>Add channel</Modal.Title>
+                <Modal.Title>{t('modals.addChannel.title')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Formik 
                     initialValues={{name: ''}}
-                    validationSchema={channelNameValidationSchema}
+                    validationSchema={channelNameValidationSchema(t)}
                     onSubmit={async (values, { resetForm, setSubmitting, setFieldError }) => {
                         if (values.name.trim().length === 0) return
                         const channelNames = channels.map(channel => channel.name)
                         if (channelNames.includes(values.name)) {
-                            setFieldError('name', 'Channel with this name already exists') // передаем ошибку в ErrorMessage
+                            setFieldError('name', t('modals.addChannel.existError')) // передаем ошибку в ErrorMessage
                             return
                         }
 
@@ -52,14 +55,14 @@ const AddChannelModal = ({ show, onClose }) => {
                         <FormikForm>
                             <BootstrapForm.Group>
                                 <BootstrapForm.Label className='visually-hidden'>
-                                    Channel name
+                                    {t('modals.addChannel.label')}
                                 </BootstrapForm.Label>
                                 <Field name="name">
                                 {({ field }) => (
                                     <BootstrapForm.Control 
                                         {...field}
                                         id='name'
-                                        placeholder='Channel name'
+                                        placeholder={t('modals.addChannel.placeholder')}
                                         isInvalid={touched.name && !!errors.name}
                                         ref={inputRef}
                                         />
@@ -72,8 +75,8 @@ const AddChannelModal = ({ show, onClose }) => {
                             </BootstrapForm.Group>
 
                                 <div className="d-flex justify-content-end mt-2">
-                                    <Button onClick={onClose} variant='secondary' className="me-2">Cansel</Button>
-                                    <Button type="submit" variant='primary' className="me-2" disabled={isSubmitting}>Add</Button>
+                                    <Button onClick={onClose} variant='secondary' className="me-2">{t('modals.addChannel.canselButton')}</Button>
+                                    <Button type="submit" variant='primary' className="me-2" disabled={isSubmitting}>{t('modals.addChannel.addButton')}</Button>
                                 </div>
                         </FormikForm>
                         )}

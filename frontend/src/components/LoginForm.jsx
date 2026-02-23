@@ -1,21 +1,24 @@
 import { Form, Field, ErrorMessage } from 'formik'
+import { useTranslation } from 'react-i18next'
 
 const LoginForm = ({ status }) => {
 
+    const { t } = useTranslation()
+
     return (
         <Form>
-            <h2 className='text-center mb-4' style={{ color: '#396591ff', fontWeight: 'bold', fontSize: '48px' }}>Login</h2>
+            <h2 className='text-center mb-4' style={{ color: '#396591ff', fontWeight: 'bold', fontSize: '48px' }}>{t('loginForm.login')}</h2>
         <div className='form-floating mb-3'>
             <Field
                 type='text'
                 name='username'
                 className='form-control'
                 autoFocus
-                aria-label="username" 
-                placeholder="Name" 
+                aria-label={t('loginForm.nameAriaLabel')} 
+                placeholder={t('loginForm.namePlaceholder')} 
                 autoComplete="off"
             />
-            <label htmlFor='username'>Name</label>
+            <label htmlFor='username'>{t('loginForm.name')}</label>
             <ErrorMessage
                 component='div'
                 name='username'
@@ -28,11 +31,11 @@ const LoginForm = ({ status }) => {
                 type='password'
                 name='password'
                 className='form-control'
-                aria-label="password" 
-                placeholder="Password" 
+                aria-label={t('loginForm.passwordAriaLabel')} 
+                placeholder={t('loginForm.passwordPlaceholder')} 
                 autoComplete="off"
             />
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>{t('loginForm.password')}</label>
             <ErrorMessage
                 component='div'
                 name='password'
@@ -40,7 +43,7 @@ const LoginForm = ({ status }) => {
             />
         </div>
 
-        <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>Send</button>
+        <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>{t('loginForm.loginButton')}</button>
 
         {status && (
             <div className='alert alert-danger'>{status}</div>
@@ -50,51 +53,4 @@ const LoginForm = ({ status }) => {
 }
 
 export default LoginForm
-
-
-
-
-
-
-
-
-
-// import { Formik, Form, Field, useFormik } from 'formik'
-
-// const Form = () => {
-//     const formik = useFormik({
-//         initialValues: {
-//             name: '',
-//             password: '',
-//         },
-//         onSubmit: (values) => {
-//             console.log(JSON.stringify(values, null, 2))
-//         },
-//     })
-
-//     return (
-//         <form onSubmit={formik.handleSubmit}>
-//             <label htmlFor='name'>Name</label>
-//             <input
-//             id='name'
-//             name='name'
-//             type='name'
-//             onChange={formik.handleChange}
-//             value={formik.values.name} />
-//             <label htmlFor='password'>Passwoed</label>
-//             <input
-//             id='password'
-//             name='password'
-//             type='password'
-//             onChange={formik.handleChange}
-//             value={formik.values.password} />
-
-//             <button type='submit'>Send</button>
-//         </form>
-
-        
-//     )
-// }
-
-// export default Form
 
