@@ -36,5 +36,6 @@ cd frontend-project-12
 
 # Install dependencies
 make install
+```
 
 The application is deployed on Render and available at: https://frontend-project-12-90j1.onrender.com
