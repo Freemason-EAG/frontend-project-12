@@ -61,7 +61,7 @@ export default {
             footerLink: 'Регистрация',
         },
         signupForm: {
-            title: 'Зарегистрироваться',
+            title: 'Регистрация',
             name: 'Имя',
             namePlaceholder: 'Ваше имя',
             nameAriaLabel: 'Ваше имя',

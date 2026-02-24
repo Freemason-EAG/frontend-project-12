@@ -7,6 +7,7 @@ import { fetchAddChannel, setCurrentChannel } from '../../store/slices/channelsS
 import { selectors as channelsSelector } from '../../store/slices/channelsSlice'
 import { channelNameValidationSchema } from '../../utils/validationSchemas'
 import { toast } from 'react-toastify'
+import filter from 'leo-profanity'
 
 const AddChannelModal = ({ show, onClose }) => {
 
@@ -30,15 +31,16 @@ const AddChannelModal = ({ show, onClose }) => {
                     initialValues={{name: ''}}
                     validationSchema={channelNameValidationSchema(t)}
                     onSubmit={async (values, { resetForm, setSubmitting, setFieldError }) => {
-                        if (values.name.trim().length === 0) return
+                        const filteredName = filter.clean(values.name)
+                        if (filteredName.trim().length === 0) return
                         const channelNames = channels.map(channel => channel.name)
-                        if (channelNames.includes(values.name)) {
+                        if (channelNames.includes(filteredName)) {
                             setFieldError('name', t('modals.addChannel.existError')) // передаем ошибку в ErrorMessage
                             return
                         }
 
                         try {
-                            const result = await dispatch(fetchAddChannel(values.name)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
+                            const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
                             toast.success(t('toasts.addChannelSuccess'))
                             dispatch(setCurrentChannel(result.id))
                             onClose()

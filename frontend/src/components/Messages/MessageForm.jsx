@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import routes from '../../utils/routes'
 import axios from 'axios'
+import filter from 'leo-profanity'
 
 
 const { messagesPath } = routes
@@ -21,9 +22,10 @@ const MessageForm = () => {
             <Formik
                 initialValues={{text: ''}}
                 onSubmit={async (values, {resetForm, setSubmitting}) => {
-                    if (values.text.trim().length === 0) return 
+                    const filteredMessage = filter.clean(values.text)
+                    if (filteredMessage.trim().length === 0) return 
                     const messageData = {
-                        body: values.text,
+                        body: filteredMessage,
                         channelId: currentChannelId,
                         username: username,
                     }
