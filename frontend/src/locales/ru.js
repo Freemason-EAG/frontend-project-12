@@ -7,6 +7,7 @@ export default {
             loading: 'Загрузка...',
             loadingError: 'Ошибка загрузки',
             empty: 'Каналы пока не добавлены',
+            managment: 'Управление каналом',
         },
         messages: {
             messages_one: '{{count}} сообщение',
@@ -22,8 +23,8 @@ export default {
         modals: {
             addChannel: {
                 title: 'Добавить канал',
-                label: 'Название канала',
-                placeholder: 'Название канала',
+                label: 'Имя канала',
+                placeholder: 'Имя канала',
                 canselButton: 'Отменить',
                 addButton: 'Добавить',
                 existError: 'Канал с таким именем уже существует'
@@ -37,7 +38,7 @@ export default {
             },
             renameChannel: {
                 title: 'Переименовать канал',
-                label: 'Новое имя канала',
+                label: 'Переименовать',
                 placeholder: 'Новое имя канала',
                 canselButton: 'Отменить',
                 renameButton: 'Переименовать',
@@ -46,9 +47,9 @@ export default {
         },
         loginForm: {
             login: 'Войти',
-            name: 'Имя',
+            name: 'Ваш ник',
             namePlaceholder: 'Ваш ник',
-            nameAriaLabel: 'Ваше имя',
+            nameAriaLabel: 'Ваш ник',
             password: 'Пароль',
             passwordPlaceholder: 'Пароль',
             passwordAriaLabel: 'Пароль',
@@ -56,15 +57,15 @@ export default {
 
         },
         loginPage: {
-            error: 'Некорректный логин или пароль',
-            footerSpan: 'Еще нет аккаунта?',
+            error: 'Неверные имя пользователя или пароль',
+            footerSpan: 'Нет аккаунта?',
             footerLink: 'Регистрация',
         },
         signupForm: {
             title: 'Регистрация',
-            name: 'Имя',
-            namePlaceholder: 'Ваше имя',
-            nameAriaLabel: 'Ваше имя',
+            name: 'Имя пользователя',
+            namePlaceholder: 'Имя пользователя',
+            nameAriaLabel: 'Имя пользователя',
             password: 'Пароль',
             passwordPlaceholder: 'Пароль',
             passwordAriaLabel: 'Пароль',
@@ -74,9 +75,9 @@ export default {
             signutButton: 'Зарегистрироваться',
         },
         signupPage: {
-            existError: 'Пользователь с таким именем уже существует',
+            existError: 'Такой пользователь уже существует',
             registrationError: 'Ошибка регистрации',
-            footerSpan: 'Уже есть аккаунт?',
+            footerSpan: 'Есть аккаунт?',
             footerLink: 'Войти',
         },
         notFoundPage: {
@@ -88,20 +89,21 @@ export default {
         },
         validation: {
             required: 'Обязательное поле',
-            minLength: 'Минимум {{count}} символов',
+            minLength: 'Не менее {{count}} символов',
             maxLength: 'Максимум {{count}} символов',
             passwordsMustMatch: 'Пароли должны совпадать',
+            channelLength: 'От 3 до 20 символов',
         },
         toasts: {
             success: 'Успешное подключение',
-            error: 'Ошибка подключения',
+            error: 'Ошибка соединения',
             loading: 'Загрузка...',
             loadingError: 'Ошибка загрузки',
-            addChannelSuccess: 'Канал успешно добавлен',
-            addChannelError: 'Не удалось добавить канал',
-            removeChannelSuccess: 'Канал успешно удален',
+            addChannelSuccess: 'Канал создан',
+            addChannelError: 'Не удалось создать канал',
+            removeChannelSuccess: 'Канал удален',
             removeChannelError: 'Не удалось удалить канал',
-            renameChannelSuccess: 'Канал успешно переименован',
+            renameChannelSuccess: 'Канал переименован',
             renameChannelError: 'Не удалось переименовать канал',
         },
     },

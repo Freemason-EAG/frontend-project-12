@@ -31,11 +31,12 @@ export const signupFormValidationSchema = (t) =>
 export const channelNameValidationSchema = (t) =>
     yup.object().shape({
     name: yup.string()
-    .min(3, t('validation.minLength', {count: 3}))
-    .max(20, t('validation.maxLength', {count: 20}))
+    .min(3, t('validation.channelLength', {count: 3}))
+    .max(20, t('validation.channelLength', {count: 20}))
     .required(t('validation.required'))
 })
 
 export default loginFormValidationSchema
+
 
 

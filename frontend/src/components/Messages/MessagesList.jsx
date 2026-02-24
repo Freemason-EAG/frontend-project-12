@@ -47,7 +47,7 @@ const MessagesList = () => {
             key={id}
             className="text-break mb-2"
             >
-                <b>{username}:</b>
+                <b>{username}: </b>
                 {body}
             </div>
         ))

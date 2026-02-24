@@ -12,6 +12,8 @@ const { t } = useTranslation()
             split 
             variant={isActive ? 'secondary' : 'light'} 
             className='w-100 rounded-0'
+            title={t('channels.managment')}
+            aria-label={t('channels.managment')}
         />
         <Dropdown.Menu>
             <Dropdown.Item onClick={() => onRename(channelId, channelName)}>{t('channels.dropdownRename')}</Dropdown.Item>
