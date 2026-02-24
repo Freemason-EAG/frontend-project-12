@@ -1,6 +1,6 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Freemason-EAG/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Freemason-EAG/frontend-project-12/actions)
-
+[![Actions Status](https://github.com/Freemason-EAG/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Freemason-EAG/frontend-project-12/actions) &nbsp;
+[![Maintainability](https://qlty.sh/gh/Freemason-EAG/projects/frontend-project-12/maintainability.svg)](https://qlty.sh/gh/Freemason-EAG/projects/frontend-project-12) &nbsp;
 [![Render](https://img.shields.io/badge/Deployed-Render-blue)](https://frontend-project-12-90j1.onrender.com)
 
 **Hexlet Chat** — real-time web application for communication, a simplified analog of Slack with the ability to create channels and exchange messages in real time.
