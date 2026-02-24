@@ -14,18 +14,11 @@ const rollbarConfig = {
   captureUnhandledRejections: true, // ловит ошибки в промисах 
 }
 
-function TestError() {
-  const a = null;
-  return a.hello();
-}
-
-
 const App = () => {
   return (
     <>
       <Provider config={rollbarConfig}>
         <ErrorBoundary>
-          <TestError />
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<MainPage />} />
