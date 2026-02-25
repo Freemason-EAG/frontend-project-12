@@ -7,6 +7,7 @@ import loginFormValidationSchema from '../utils/validationSchemas.js'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../store/slices/authSlice.js'
 import { useNavigate, Link } from 'react-router-dom'
+import NavBar from '../components/NavBar.jsx'
 
 const LoginPage = () => {
 
@@ -15,6 +16,8 @@ const LoginPage = () => {
     const navigate = useNavigate()
 
     return (
+        <>
+        <NavBar />
         <div className='container-fluid h-100'>
             <div className='row justify-content-center align-content-center h-100'>
                 <div className='col-12 col-md-8 col-xxl-6'> 
@@ -61,6 +64,7 @@ const LoginPage = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { signupFormValidationSchema } from "../utils/validationSchemas"
 import { fetchCreateNewUser } from "../store/slices/authSlice"
 import SignupForm from "../components/SignupForm"
+import NavBar from "../components/NavBar"
 
 
 const SignupPage = () => {
@@ -14,6 +15,8 @@ const SignupPage = () => {
     const navigate = useNavigate()
 
     return (
+        <>
+        <NavBar />
         <div className='container-fluid h-100'>
             <div className='row justify-content-center align-content-center h-100'>
                 <div className='col-12 col-md-8 col-xxl-6'> 
@@ -65,7 +68,7 @@ const SignupPage = () => {
                 </div>
             </div>
         </div>
-
+    </>
     )
 }
 
