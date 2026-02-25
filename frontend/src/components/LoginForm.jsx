@@ -42,12 +42,11 @@ const LoginForm = ({ status }) => {
                 className='invalid-feedback d-block'
             />
         </div>
-
-        <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>{t('loginForm.loginButton')}</button>
-
         {status && (
             <div className='alert alert-danger'>{status}</div>
         )}
+
+        <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>{t('loginForm.loginButton')}</button>
         </Form>
     )
 }
