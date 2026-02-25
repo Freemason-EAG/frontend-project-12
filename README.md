@@ -36,6 +36,12 @@ cd frontend-project-12
 
 # Install dependencies
 make install
+
+# Start development mode (backend + frontend)
+make develop
+
+# Build frontend for production
+make build
 ```
 
 The application is deployed on Render and available at: https://frontend-project-12-90j1.onrender.com

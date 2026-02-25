@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { removeUser } from '../store/slices/authSlice'
 import { useTranslation } from 'react-i18next'
 
+
 const NavBar = () => {
 
     const { t } = useTranslation()
