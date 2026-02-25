@@ -26,11 +26,11 @@ const LoginForm = ({ status }) => {
             />
         </div>
         
-        <div className='form-floating mb-3'>
+        <div className='form-floating mb-3 position-relative'>
             <Field
                 type='password'
                 name='password'
-                className='form-control'
+                className={`form-control ${status ? 'is-invalid' : ''}`}
                 aria-label={t('loginForm.passwordAriaLabel')} 
                 placeholder={t('loginForm.passwordPlaceholder')} 
                 autoComplete="off"
@@ -41,10 +41,12 @@ const LoginForm = ({ status }) => {
                 name='password'
                 className='invalid-feedback d-block'
             />
-        </div>
-        {status && (
-            <div className='alert alert-danger'>{status}</div>
+            {status && (
+            <div className="invalid-tooltip">
+                {status}
+            </div>
         )}
+        </div>
 
         <button className='w-100 mb-3 btn btn-outline-primary' type='submit'>{t('loginForm.loginButton')}</button>
         </Form>

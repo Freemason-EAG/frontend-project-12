@@ -32,6 +32,7 @@ const LoginPage = () => {
                                     validationSchema={loginFormValidationSchema(t)}
                                     onSubmit={async (values, { setSubmitting, setStatus }) => {
                                         try {
+                                            setStatus(null)
                                             setSubmitting(true)
                                             const responce = await axios.post(routes.loginPath(), values)
                                             const { username, token } = responce.data
