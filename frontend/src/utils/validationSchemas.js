@@ -13,8 +13,8 @@ const loginFormValidationSchema = (t) =>
 export const signupFormValidationSchema = (t) =>
     yup.object().shape({
     username: yup.string()
-        .min(3, t('validation.minLength', {count: 3}))
-        .max(20, t('validation.maxLength', {count: 20}))
+        .min(3, t('validation.channelLength', {count: 3}))
+        .max(20, t('validation.channelLength', {count: 20}))
         .required(t('validation.required')),
     password: yup.string()
         .min(6, t('validation.minLength', {count: 6}))
