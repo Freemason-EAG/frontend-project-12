@@ -40,8 +40,12 @@ const LoginPage = () => {
                                             navigate('/', { replace: false })
                                         }
                                         catch (error) {
-                                            setStatus(t('loginPage.error'))
-                                            console.log(error)
+                                            if (error.response?.status === 401) {
+                                                setStatus(t('loginPage.error'))
+                                            } 
+                                            else {
+                                                console.error(error)
+                                            }
                                         }
                                         finally {
                                             setSubmitting(false) // завершить отправку
