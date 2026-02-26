@@ -46,7 +46,7 @@ const RenameChannelModal = ({ show, onClose, channelId }) => {
                         }
                         catch (error) {
                             console.log('Rename channel error:', error)
-                            toast.error(t('toasts.renameChannelError'))
+                            // toast.error(t('toasts.renameChannelError'))
                         }
                         finally {
                             setSubmitting(false)

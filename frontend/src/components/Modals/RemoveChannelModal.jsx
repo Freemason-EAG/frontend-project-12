@@ -29,7 +29,7 @@ const RemoveChannelModal = ({ show, onClose, channelId }) => {
         catch (error) {
             console.log('Remove channel error:', error)
             setError(t('modals.removeChannel.error'))
-            toast.error(t('toasts.removeChannelError'))
+            // toast.error(t('toasts.removeChannelError'))
         }
     }
 
