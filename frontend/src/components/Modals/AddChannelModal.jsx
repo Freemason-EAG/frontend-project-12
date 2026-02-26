@@ -41,7 +41,11 @@ const AddChannelModal = ({ show, onClose }) => {
 
                         try {
                             const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
-                            toast.success(t('toasts.addChannelSuccess'))
+                            toast.success(t('toasts.addChannelSuccess'), {
+                                autoClose: 7000,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                            })
                             dispatch(setCurrentChannel(result.id))
                             onClose()
                             resetForm()
