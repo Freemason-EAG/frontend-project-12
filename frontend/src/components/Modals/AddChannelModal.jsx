@@ -43,18 +43,9 @@ const AddChannelModal = ({ show, onClose }) => {
 
                         try {
                             const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
-
-                            console.log('Добавляем элемент в DOM')
-  const div = document.createElement('div')
-  div.textContent = 'Канал создан'
-  div.id = 'test-success-message'
-  div.style.cssText = 'position: fixed; top: 10px; right: 10px; background: green; color: white; padding: 10px; z-index: 9999;'
-  document.body.appendChild(div)
-  console.log('Элемент добавлен:', document.getElementById('test-success-message'))
-
-  
                             notifyAdd()
                             console.log('Toast:', t('toasts.addChannelSuccess'))
+        await new Promise(resolve => setTimeout(resolve, 50))
                             dispatch(setCurrentChannel(result.id))
                             onClose()
                             resetForm()
