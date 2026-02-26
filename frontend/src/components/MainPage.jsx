@@ -18,7 +18,7 @@ const MainPage = () => {
     const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token)
     
-    useEffect(() => {
+useEffect(() => {
   if (!token) return
 
   if (!socket.connected) {
@@ -28,25 +28,29 @@ const MainPage = () => {
   dispatch(fetchGetChannels())
   dispatch(fetchGetMessages())
 
-  socket.on('newChannel', (channel) => {
+  const handleNewChannel = (channel) => {
     dispatch(addChannel(channel))
     toast.success(t('toasts.addChannelSuccess'))
-  })
+  }
 
-  socket.on('renameChannel', (channel) => {
-    dispatch(updateChannel({ id: channel.id, changes: channel}))
+  const handleRenameChannel = (channel) => {
+    dispatch(updateChannel({ id: channel.id, changes: channel }))
     toast.success(t('toasts.renameChannelSuccess'))
-  })
+  }
 
-  socket.on('removeChannel', ({ id }) => {
+  const handleRemoveChannel = ({ id }) => {
     dispatch(removeChannel(id))
     toast.success(t('toasts.removeChannelSuccess'))
-  })
+  }
+
+  socket.on('newChannel', handleNewChannel)
+  socket.on('renameChannel', handleRenameChannel)
+  socket.on('removeChannel', handleRemoveChannel)
 
   return () => {
-    socket.off('newChannel')
-    socket.off('renameChannel')
-    socket.off('removeChannel')
+    socket.off('newChannel', handleNewChannel)
+    socket.off('renameChannel', handleRenameChannel)
+    socket.off('removeChannel', handleRemoveChannel)
   }
 }, [dispatch, token])
 
