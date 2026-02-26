@@ -3,7 +3,7 @@ import MainPage from './components/MainPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
-import { Bounce, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Provider, ErrorBoundary } from '@rollbar/react'
 
@@ -16,7 +16,7 @@ const rollbarConfig = {
 
 const App = () => {
   return (
-    <>
+    
       <Provider config={rollbarConfig}>
         <ErrorBoundary>
           <BrowserRouter>
@@ -27,10 +27,10 @@ const App = () => {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
-          <ToastContainer />
         </ErrorBoundary>
+        <ToastContainer />
      </Provider>
-    </>
+    
   )
 }
 
