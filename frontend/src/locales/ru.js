@@ -101,7 +101,7 @@ export default {
             loadingError: 'Ошибка загрузки',
             addChannelSuccess: 'Канал создан',
             addChannelError: 'Не удалось создать канал',
-            removeChannelSuccess: 'Канал удален',
+            removeChannelSuccess: 'Канал удалён',
             removeChannelError: 'Не удалось удалить канал',
             renameChannelSuccess: 'Канал переименован',
             renameChannelError: 'Не удалось переименовать канал',
