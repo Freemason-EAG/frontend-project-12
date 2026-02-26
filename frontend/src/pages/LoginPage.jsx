@@ -1,6 +1,5 @@
 import axios from 'axios'
 import routes from '../utils/routes.js'
-import { useState } from 'react'
 import { Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import LoginForm from '../components/LoginForm.jsx'
@@ -12,7 +11,6 @@ import NavBar from '../components/NavBar.jsx'
 
 const LoginPage = () => {
 
-    const [loginError, setLoginError] = useState(false)
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -34,7 +32,6 @@ const LoginPage = () => {
                                     validationSchema={loginFormValidationSchema(t)}
                                     onSubmit={async (values, { setSubmitting, setStatus }) => {
                                         try {
-                                            setLoginError(false)
                                             setStatus(null)
                                             setSubmitting(true)
                                             const responce = await axios.post(routes.loginPath(), values)
@@ -44,20 +41,15 @@ const LoginPage = () => {
                                             navigate('/', { replace: false })
                                         }
                                         catch (error) {
-                                            if (error.response?.status === 401) {
-                                                setLoginError(true)
-                                                setStatus(t('loginPage.error'))
-                                            } 
-                                            else {
-                                                console.error(error)
-                                            }
+                                           setStatus(t('loginPage.error'))
+                                           console.log(error)
                                         }
                                         finally {
                                             setSubmitting(false) // завершить отправку
                                         }
                                     }}
                                 >
-                                    {(props) => <LoginForm {...props} loginError={loginError} />}
+                                    {(props) => <LoginForm {...props} />}
                                 </Formik>
                             </div>
                         </div>  
