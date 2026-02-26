@@ -37,6 +37,7 @@ const LoginPage = () => {
                                             const responce = await axios.post(routes.loginPath(), values)
                                             const { username, token } = responce.data
                                             localStorage.setItem('token', token)
+                                            localStorage.setItem('username', username)
                                             dispatch(addUser({ username: username, token}))
                                             navigate('/', { replace: false })
                                         }

@@ -42,8 +42,8 @@ const LoginForm = ({ status }) => {
                 className='invalid-feedback d-block'
             />
             {status && (
-            <div className="invalid-feedback d-block">
-                {t('loginPage.error')}
+            <div className="alert alert-danger mt-3" role="alert">
+                {status}
             </div>
         )}
         </div>

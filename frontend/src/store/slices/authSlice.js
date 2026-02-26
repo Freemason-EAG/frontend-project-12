@@ -20,9 +20,12 @@ export const fetchCreateNewUser = createAsyncThunk(
     }
 )
 
+const savedToken = localStorage.getItem('token')
+const savedUser = localStorage.getItem('username')
+
 const initialState = {
-    user: null,
-    token: null,
+    user: savedUser || null,
+    token: savedToken || null,
     error: null,
 }
 
@@ -37,6 +40,8 @@ const authSlice = createSlice({
         removeUser: (state) => {
             state.user = null
             state.token = null 
+            localStorage.removeItem('token')
+            localStorage.removeItem('username')
         },
     },
     extraReducers: (builder) => {
