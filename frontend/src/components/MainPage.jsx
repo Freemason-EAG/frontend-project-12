@@ -21,7 +21,9 @@ const MainPage = () => {
     useEffect(() => {
   if (!token) return
 
-  socket.connect()
+  if (!socket.connected) {
+    socket.connect()
+  }
 
   dispatch(fetchGetChannels())
   dispatch(fetchGetMessages())
@@ -45,9 +47,8 @@ const MainPage = () => {
     socket.off('newChannel')
     socket.off('renameChannel')
     socket.off('removeChannel')
-    socket.disconnect()
   }
-}, [dispatch, token, t])
+}, [dispatch, token])
 
     if (!token) return <Navigate to={'/login'} replace />
     
