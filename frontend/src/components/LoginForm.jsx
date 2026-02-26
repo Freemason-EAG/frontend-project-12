@@ -1,7 +1,7 @@
 import { Form, Field, ErrorMessage } from 'formik'
 import { useTranslation } from 'react-i18next'
 
-const LoginForm = ({ status }) => {
+const LoginForm = ({ status, loginError }) => {
 
     const { t } = useTranslation()
 
@@ -12,7 +12,7 @@ const LoginForm = ({ status }) => {
             <Field
                 type='text'
                 name='username'
-                className='form-control'
+                className={`form-control ${loginError ? 'is-invalid' : ''}`}
                 autoFocus
                 aria-label={t('loginForm.nameAriaLabel')} 
                 placeholder={t('loginForm.namePlaceholder')} 
@@ -30,7 +30,7 @@ const LoginForm = ({ status }) => {
             <Field
                 type='password'
                 name='password'
-                className={`form-control ${status ? 'is-invalid' : ''}`}
+                className={`form-control ${loginError ? 'is-invalid' : ''}`}
                 aria-label={t('loginForm.passwordAriaLabel')} 
                 placeholder={t('loginForm.passwordPlaceholder')} 
                 autoComplete="off"
@@ -41,9 +41,9 @@ const LoginForm = ({ status }) => {
                 name='password'
                 className='invalid-feedback d-block'
             />
-            {status && (
-            <div className="invalid-tooltip">
-                {status}
+            {loginError && (
+            <div className="invalid-feedback d-block">
+                {t('loginPage.error')}
             </div>
         )}
         </div>

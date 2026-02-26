@@ -1,5 +1,6 @@
 import axios from 'axios'
 import routes from '../utils/routes.js'
+import { useState } from 'react'
 import { Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import LoginForm from '../components/LoginForm.jsx'
@@ -11,6 +12,7 @@ import NavBar from '../components/NavBar.jsx'
 
 const LoginPage = () => {
 
+    const [loginError, setLoginError] = useState(false)
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -32,6 +34,7 @@ const LoginPage = () => {
                                     validationSchema={loginFormValidationSchema(t)}
                                     onSubmit={async (values, { setSubmitting, setStatus }) => {
                                         try {
+                                            setLoginError(false)
                                             setStatus(null)
                                             setSubmitting(true)
                                             const responce = await axios.post(routes.loginPath(), values)
@@ -42,6 +45,7 @@ const LoginPage = () => {
                                         }
                                         catch (error) {
                                             if (error.response?.status === 401) {
+                                                setLoginError(true)
                                                 setStatus(t('loginPage.error'))
                                             } 
                                             else {
@@ -53,7 +57,7 @@ const LoginPage = () => {
                                         }
                                     }}
                                 >
-                                    {(props) => <LoginForm {...props} />}
+                                    {(props) => <LoginForm {...props} loginError={loginError} />}
                                 </Formik>
                             </div>
                         </div>  
