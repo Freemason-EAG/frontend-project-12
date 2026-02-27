@@ -4,31 +4,32 @@ import { removeUser } from '../store/slices/authSlice'
 import { useTranslation } from 'react-i18next'
 
 const NavBar = () => {
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    const { t } = useTranslation()
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const location = useLocation()
+  const removeLogout = ['/login', '/signup']
 
-    const removeLogout = ['/login', '/signup']
+  const handleOut = () => {
+    localStorage.removeItem('token')
+    dispatch(removeUser())
+    navigate('/login', { replace: false })
+  }
 
-    const handleOut = () => {
-        localStorage.removeItem('token')
-        dispatch(removeUser())
-        navigate('/login', { replace: false })
-    }
-
-    return (
-        <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-            <div className='container'>
-                <Link to='/' className='navbar-brand'>Hexlet Chat</Link>
-                {!removeLogout.includes(location.pathname) && 
-                <button type='button' className='btn btn-primary' onClick={handleOut}>
-                    {t('navBar.logout')}
-                    </button>}
-            </div>
-        </nav>
-    )
+  return (
+    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+      <div className="container">
+        <Link to="/" className="navbar-brand">Hexlet Chat</Link>
+        {!removeLogout.includes(location.pathname)
+          && (
+            <button type="button" className="btn btn-primary" onClick={handleOut}>
+              {t('navBar.logout')}
+            </button>
+          )}
+      </div>
+    </nav>
+  )
 }
 
 export default NavBar

@@ -60,7 +60,6 @@ const LoginForm = ({ status }) => {
 
 export default LoginForm
 
-
 // import { Form, Field, ErrorMessage } from 'formik'
 // import { useTranslation } from 'react-i18next'
 
@@ -77,25 +76,25 @@ export default LoginForm
 //                 name='username'
 //                 className={`form-control ${status ? 'is-invalid' : ''}`}
 //                 autoFocus
-//                 aria-label={t('loginForm.nameAriaLabel')} 
-//                 placeholder={t('loginForm.namePlaceholder')} 
+//                 aria-label={t('loginForm.nameAriaLabel')}
+//                 placeholder={t('loginForm.namePlaceholder')}
 //                 autoComplete="off"
 //             />
 //             <label htmlFor='username'>{t('loginForm.name')}</label>
 //             <ErrorMessage
 //                 component='div'
 //                 name='username'
-//                 className='invalid-feedback d-block' 
+//                 className='invalid-feedback d-block'
 //             />
 //         </div>
-        
+
 //         <div className='form-floating mb-3 position-relative'>
 //             <Field
 //                 type='password'
 //                 name='password'
 //                 className={`form-control ${status ? 'is-invalid' : ''}`}
-//                 aria-label={t('loginForm.passwordAriaLabel')} 
-//                 placeholder={t('loginForm.passwordPlaceholder')} 
+//                 aria-label={t('loginForm.passwordAriaLabel')}
+//                 placeholder={t('loginForm.passwordPlaceholder')}
 //                 autoComplete="off"
 //             />
 //             <label htmlFor='password'>{t('loginForm.password')}</label>

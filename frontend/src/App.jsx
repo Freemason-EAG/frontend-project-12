@@ -11,26 +11,26 @@ const rollbarConfig = {
   accessToken: 'fb3c362e3ca746779291cd949398405b',
   environment: 'testenv',
   captureUncaught: true, // ловит обычные ошибки типа throw new Error
-  captureUnhandledRejections: true, // ловит ошибки в промисах 
+  captureUnhandledRejections: true, // ловит ошибки в промисах
 }
 
 const App = () => {
   return (
-    
-      <Provider config={rollbarConfig}>
-        <ErrorBoundary>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<MainPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path='/signup' element={<SignupPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </BrowserRouter>
-        </ErrorBoundary>
-        <ToastContainer />
-     </Provider>
-    
+
+    <Provider config={rollbarConfig}>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
+      <ToastContainer />
+    </Provider>
+
   )
 }
 
