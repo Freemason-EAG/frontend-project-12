@@ -9,7 +9,15 @@ import './i18n.js' // инициализация i18n
 import filter from 'leo-profanity'
 
 filter.loadDictionary('ru')
-filter.add(['пидорас', 'пидорасы', 'пидар', 'пидор', 'пидарка', 'пидорка', 'пидарки', 'пидарку', 'пидаркам', 'пидарках', 'пидаркам', 'пидарками', 'пидарках'])
+const ruLang = filter.list()
+
+filter.loadDictionary('en')
+const enLang = filter.list()
+
+const RuEnlangsFilter = [...ruLang, ...enLang]
+
+filter.addDictionary('en-ru', RuEnlangsFilter)
+filter.loadDictionary('en-ru')
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
