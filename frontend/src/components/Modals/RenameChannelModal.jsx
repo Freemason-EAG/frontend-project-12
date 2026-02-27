@@ -57,9 +57,12 @@ const RenameChannelModal = ({ show, onClose, channelId }) => {
                         {({ errors, touched, isSubmitting }) => (
                         <FormikForm>
                             <BootstrapForm.Group>
-                                <BootstrapForm.Label className='visually-hidden'>
+                                <BootstrapForm.Label 
+                                htmlFor='name'
+                                className='visually-hidden'>
                                     {t('modals.renameChannel.label')}
                                 </BootstrapForm.Label>
+                                
                                 <Field name="name">
                                 
                                 {({ field }) => (
