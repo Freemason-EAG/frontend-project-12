@@ -33,16 +33,16 @@ const AddChannelModal = ({ show, onClose }) => {
                     initialValues={{name: ''}}
                     validationSchema={channelNameValidationSchema(t)}
                     onSubmit={async (values, { resetForm, setSubmitting, setFieldError }) => {
-                        const filteredName = filter.clean(values.name)
-                        if (filteredName.trim().length === 0) return
+                        // const filteredName = filter.clean(values.name)
+                        // if (filteredName.trim().length === 0) return
                         const channelNames = channels.map(channel => channel.name)
-                        if (channelNames.includes(filteredName)) {
+                        if (channelNames.includes(values.name)) {
                             setFieldError('name', t('modals.addChannel.existError')) // передаем ошибку в ErrorMessage
                             return
                         }
 
                         try {
-                            const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
+                            const result = await dispatch(fetchAddChannel(values.name)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
                             notifyAdd()
                             console.log('Toast:', t('toasts.addChannelSuccess'))
                             dispatch(setCurrentChannel(result.id))
@@ -100,3 +100,27 @@ export default AddChannelModal
 
 
 
+// onSubmit={async (values, { resetForm, setSubmitting, setFieldError }) => {
+//                         const filteredName = filter.clean(values.name)
+//                         if (filteredName.trim().length === 0) return
+//                         const channelNames = channels.map(channel => channel.name)
+//                         if (channelNames.includes(filteredName)) {
+//                             setFieldError('name', t('modals.addChannel.existError')) // передаем ошибку в ErrorMessage
+//                             return
+//                         }
+
+//                         try {
+//                             const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
+//                             notifyAdd()
+//                             console.log('Toast:', t('toasts.addChannelSuccess'))
+//                             dispatch(setCurrentChannel(result.id))
+//                             onClose()
+//                             resetForm()
+//                         }
+//                         catch (error) {
+//                             console.log('Creating channel error:', error)
+//                             // toast.error(t('toasts.addChannelError'))
+//                         }
+//                         finally {
+//                             setSubmitting(false)
+//                         }
