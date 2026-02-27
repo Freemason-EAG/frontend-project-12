@@ -11,8 +11,8 @@ const ChannelItem = ({ channel, isActive, onSelect, onRename, onDelete }) => {
                     className="w-100 rounded-0 text-start text-truncate" // text-truncate для сокращения длинного названия
                     onClick={onSelect}
                 >
-                    <span className="me-1">#</span>
-                    {channel.name}
+                    <span className="me-1" aria-hidden='true'>#</span>
+                    {channel.name} 
                 </Button>
                 {channel.removable && (
                     <ChannelDropdown
