@@ -18,7 +18,7 @@ const AddChannelModal = ({ show, onClose }) => {
 
     const inputRef = useRef(null)
 
-    // if (!show) return null
+    if (!show) return null
 
     const notifyAdd = () => toast.success(`${t('toasts.addChannelSuccess')}`)
 
@@ -45,7 +45,6 @@ const AddChannelModal = ({ show, onClose }) => {
                             const result = await dispatch(fetchAddChannel(filteredName)).unwrap() // unwrapp() пробрасывает ошибки в catch !!!
                             notifyAdd()
                             console.log('Toast:', t('toasts.addChannelSuccess'))
-        await new Promise(resolve => setTimeout(resolve, 50))
                             dispatch(setCurrentChannel(result.id))
                             onClose()
                             resetForm()
@@ -63,7 +62,9 @@ const AddChannelModal = ({ show, onClose }) => {
                         {({ errors, touched, isSubmitting }) => (
                         <FormikForm>
                             <BootstrapForm.Group>
-                                <BootstrapForm.Label className='visually-hidden'>
+                                <BootstrapForm.Label 
+                                htmlFor='name'
+                                className='visually-hidden'>
                                     {t('modals.addChannel.label')}
                                 </BootstrapForm.Label>
                                 <Field name="name">
