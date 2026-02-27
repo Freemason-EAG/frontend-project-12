@@ -69,12 +69,13 @@ const RenameChannelModal = ({ show, onClose, channelId }) => {
                                     <BootstrapForm.Control 
                                         {...field}
                                         id='name'
+                                        aria-label={t('modals.renameChannel.label')}
                                         placeholder={t('modals.renameChannel.placeholder')}
 
                                         isInvalid={touched.name && !!errors.name}
                                         ref={inputRef}
                                     />
-                                )} 
+                                )}
 
                                 </Field> 
                                 <ErrorMessage 
