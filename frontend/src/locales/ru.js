@@ -38,7 +38,7 @@ export default {
             },
             renameChannel: {
                 title: 'Переименовать канал',
-                label: 'Переименовать',
+                label: 'Имя канала',
                 placeholder: 'Новое имя канала',
                 canselButton: 'Отменить',
                 renameButton: 'Переименовать',
