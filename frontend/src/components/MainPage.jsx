@@ -9,10 +9,13 @@ import { fetchGetChannels } from '../store/slices/channelsSlice.js'
 import { fetchGetMessages } from '../store/slices/messagesSlice.js'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
+import Loader from './Loader'
 
 const MainPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const channelsStatus = useSelector(state => state.channels.status)
+  const messageStatus = useSelector(state => state.messages.status)
   const token = useSelector(state => state.auth.token)
 
   useEffect(() => {
@@ -42,6 +45,10 @@ const MainPage = () => {
   }, [dispatch, token, t])
 
   if (!token) return <Navigate to="/login" replace />
+
+  if (channelsStatus === 'loading' || messageStatus === 'loading') {
+    return <Loader />
+  }
 
   return (
     <div className="h-100 bg-light">
