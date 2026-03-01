@@ -97,13 +97,10 @@ const channelsSlice = createSlice({
     })
 
     builder.addCase(fetchAddChannel.pending, (state) => {
-      // state.status = 'loading'
       state.error = null
     })
     builder.addCase(fetchAddChannel.fulfilled, (state, action) => {
       channelsAdapter.addOne(state, action.payload)
-      // state.status = 'succeeded'
-      // state.error = null
     })
     builder.addCase(fetchAddChannel.rejected, (state, action) => {
       state.status = 'failed'
@@ -111,7 +108,6 @@ const channelsSlice = createSlice({
     })
 
     builder.addCase(fetchEditChannel.pending, (state) => {
-      // state.status = 'loading'
       state.error = null
     })
     builder.addCase(fetchEditChannel.fulfilled, (state, action) => {
@@ -119,8 +115,6 @@ const channelsSlice = createSlice({
         id: action.payload.id,
         changes: action.payload,
       })
-      // state.status = 'succeeded'
-      // state.error = null
     })
     builder.addCase(fetchEditChannel.rejected, (state, action) => {
       state.status = 'failed'
@@ -128,13 +122,10 @@ const channelsSlice = createSlice({
     })
 
     builder.addCase(fetchRemoveChannel.pending, (state) => {
-      // state.status = 'loading'
       state.error = null
     })
     builder.addCase(fetchRemoveChannel.fulfilled, (state, action) => {
       channelsAdapter.removeOne(state, action.payload.id)
-      // state.status = 'succeeded'
-      // state.error = null
     })
     builder.addCase(fetchRemoveChannel.rejected, (state, action) => {
       state.status = 'failed'

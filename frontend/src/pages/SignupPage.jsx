@@ -4,13 +4,35 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { signupFormValidationSchema } from '../utils/validationSchemas'
 import { fetchCreateNewUser } from '../store/slices/authSlice'
-import SignupForm from '../components/SignupForm'
-import NavBar from '../components/NavBar'
+import SignupForm from '../components/SignupForm.jsx'
+import NavBar from '../components/NavBar.jsx'
 
 const SignupPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const handleSubmit = async (values, { setSubmitting, setStatus, setFieldError }) => {
+    try {
+      setSubmitting(true)
+      await dispatch(fetchCreateNewUser({
+        username: values.username,
+        password: values.password,
+      })).unwrap()
+      navigate('/', { replace: false })
+    }
+    catch (error) {
+      if (error.status === 409) {
+        setFieldError('username', t('signupPage.existError'))
+      }
+      else {
+        setStatus(t('signupPage.registrationError'))
+      }
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -27,27 +49,7 @@ const SignupPage = () => {
                   <Formik
                     initialValues={{ username: '', password: '', confirmPassword: '' }}
                     validationSchema={signupFormValidationSchema(t)}
-                    onSubmit={async (values, { setSubmitting, setStatus, setFieldError }) => {
-                      try {
-                        setSubmitting(true)
-                        await dispatch(fetchCreateNewUser({
-                          username: values.username,
-                          password: values.password,
-                        })).unwrap()
-                        navigate('/', { replace: false })
-                      }
-                      catch (error) {
-                        if (error.status === 409) {
-                          setFieldError('username', t('signupPage.existError'))
-                        }
-                        else {
-                          setStatus(t('signupPage.registrationError'))
-                        }
-                      }
-                      finally {
-                        setSubmitting(false)
-                      }
-                    }}
+                    onSubmit={handleSubmit}
                   >
                     {props => <SignupForm {...props} />}
 

@@ -17,4 +17,4 @@ const createI18n = () => {
   return instance
 }
 
-export default createI18n()
+export default createI18n

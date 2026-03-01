@@ -14,6 +14,26 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const handleSubmit = async (values, { setSubmitting, setStatus }) => {
+    try {
+      setStatus(null)
+      setSubmitting(true)
+      const response = await axios.post(routes.loginPath(), values)
+      const { username, token } = response.data
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', username)
+      dispatch(addUser({ username: username, token }))
+      navigate('/', { replace: false })
+    }
+    catch (error) {
+      setStatus(t('loginPage.error'))
+      console.log(error)
+    }
+    finally {
+      setSubmitting(false) // завершить отправку
+    }
+  }
+
   return (
     <>
       <NavBar />
@@ -29,25 +49,7 @@ const LoginPage = () => {
                   <Formik
                     initialValues={{ username: '', password: '' }}
                     validationSchema={loginFormValidationSchema(t)}
-                    onSubmit={async (values, { setSubmitting, setStatus }) => {
-                      try {
-                        setStatus(null)
-                        setSubmitting(true)
-                        const responce = await axios.post(routes.loginPath(), values)
-                        const { username, token } = responce.data
-                        localStorage.setItem('token', token)
-                        localStorage.setItem('username', username)
-                        dispatch(addUser({ username: username, token }))
-                        navigate('/', { replace: false })
-                      }
-                      catch (error) {
-                        setStatus(t('loginPage.error'))
-                        console.log(error)
-                      }
-                      finally {
-                        setSubmitting(false) // завершить отправку
-                      }
-                    }}
+                    onSubmit={handleSubmit}
                   >
                     {props => <LoginForm {...props} />}
                   </Formik>

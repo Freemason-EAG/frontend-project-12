@@ -2,14 +2,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import socket from '../utils/socket.js'
-import NavBar from './NavBar'
-import ChannelsBox from './Channels/ChannelsBox.jsx'
-import MessagesBox from './Messages/MessagesBox.jsx'
+import NavBar from '../components/NavBar.jsx'
+import ChannelsBox from '../components/Channels/ChannelsBox.jsx'
+import MessagesBox from '../components/Messages/MessagesBox.jsx'
 import { fetchGetChannels } from '../store/slices/channelsSlice.js'
 import { fetchGetMessages } from '../store/slices/messagesSlice.js'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
-import Loader from './Loader'
+import Loader from '../components/Loader'
 
 const MainPage = () => {
   const { t } = useTranslation()
@@ -46,8 +46,19 @@ const MainPage = () => {
 
   if (!token) return <Navigate to="/login" replace />
 
-  if (channelsStatus === 'loading' || messageStatus === 'loading') {
-    return <Loader />
+  if (channelsStatus === 'loading'
+    || channelsStatus === 'idle'
+    || messageStatus === 'loading'
+    || messageStatus === 'idle'
+  ) {
+    return (
+      <div className="h-100 bg-light">
+        <NavBar />
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+          <Loader />
+        </div>
+      </div>
+    )
   }
 
   return (
